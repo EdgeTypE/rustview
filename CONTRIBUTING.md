@@ -113,8 +113,3 @@ Open an issue on GitHub. Include:
 - What actually happened
 - Steps to reproduce (ideally a small code snippet)
 - Rust version (`rustc --version`)
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the
-same terms as the project: MIT OR Apache-2.0.

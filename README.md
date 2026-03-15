@@ -10,11 +10,17 @@ a 1.0 release.
 
 ## Quick Start
 
-Add the dependency (currently from git):
+Add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-rustview = { git = "https://github.com/EdgeTypE/rustview.git" }
+rustview = "0.1"
+```
+
+Or use `cargo add`:
+
+```bash
+cargo add rustview
 ```
 
 Write your app:
@@ -183,6 +189,7 @@ depending on community feedback.
 
 **Done**
 
+- Publish to crates.io
 - Core widget set (56+ widgets across input, output, layout, charts)
 - Immediate-mode rendering with virtual DOM diffing
 - Session state and user-defined state
@@ -194,11 +201,10 @@ depending on community feedback.
 
 **Near-term**
 
-- Publish to crates.io
-- Stabilize the public API and release v0.1 as a proper crate
 - Add accessibility attributes (ARIA roles, keyboard navigation)
 - WebSocket transport option alongside SSE
 - File download improvements (streaming large files)
+- Stabilize the public API and release v0.1 as a proper crate
 
 **Medium-term**
 
@@ -224,6 +230,3 @@ depending on community feedback.
 See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions, coding
 guidelines, and how to submit a pull request.
 
-## License
-
-MIT OR Apache-2.0
