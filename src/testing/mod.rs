@@ -4,7 +4,7 @@
 //! unit-test your RustView app functions without starting the HTTP server.
 //!
 //! # Example
-//! ```rust,ignore
+//! ```rust
 //! use rustview::testing::TestUi;
 //! use rustview::ui::Ui;
 //!
@@ -16,13 +16,10 @@
 //!     ui.write(format!("Count: {}", ui.get_state::<i64>("n", 0)));
 //! }
 //!
-//! #[test]
-//! fn test_counter() {
-//!     let mut tui = TestUi::new();
-//!     tui.click_button("Inc");
-//!     tui.run(counter_app);
-//!     assert_eq!(tui.text_content(), "Count: 1");
-//! }
+//! let mut tui = TestUi::new();
+//! tui.click_button("Inc");
+//! tui.run(counter_app);
+//! assert!(tui.contains_text("Count: 1"));
 //! ```
 
 use crate::session::Session;

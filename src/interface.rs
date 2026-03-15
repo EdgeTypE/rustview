@@ -4,7 +4,7 @@
 //! based on type inference. Inspired by Gradio's `gr.Interface(fn, inputs, outputs)`.
 //!
 //! # Example
-//! ```rust,ignore
+//! ```rust,no_run
 //! fn greet(name: String) -> String {
 //!     format!("Hello, {}!", name)
 //! }
@@ -141,7 +141,7 @@ impl<A: WidgetOutput, B: WidgetOutput, C: WidgetOutput> WidgetOutput for (A, B, 
 /// or `Interface::from_fn2()` for 2-argument functions.
 ///
 /// # Example
-/// ```rust,ignore
+/// ```rust,no_run
 /// fn double(x: f64) -> f64 {
 ///     x * 2.0
 /// }

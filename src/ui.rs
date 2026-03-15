@@ -59,7 +59,10 @@ impl<'a> Ui<'a> {
     /// stable widget IDs across re-runs.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.with_key("user_name");
     /// let name = ui.text_input("Name", "");
     /// ```
@@ -75,7 +78,10 @@ impl<'a> Ui<'a> {
     /// Returns the current text value.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let name = ui.text_input("Your name", "World");
     /// ```
     pub fn text_input(&mut self, label: &str, default: &str) -> String {
@@ -94,7 +100,10 @@ impl<'a> Ui<'a> {
     /// Returns the current slider value.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let count = ui.int_slider("Repeat", 1..=10);
     /// ```
     pub fn int_slider(&mut self, label: &str, range: std::ops::RangeInclusive<i64>) -> i64 {
@@ -116,7 +125,10 @@ impl<'a> Ui<'a> {
     /// Returns the current checked state.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let enabled = ui.checkbox("Enable feature", false);
     /// ```
     pub fn checkbox(&mut self, label: &str, default: bool) -> bool {
@@ -135,7 +147,10 @@ impl<'a> Ui<'a> {
     /// Returns `true` if the button was clicked in this interaction.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// if ui.button("Submit") {
     ///     // handle click
     /// }
@@ -159,7 +174,10 @@ impl<'a> Ui<'a> {
     /// Returns the current numeric value.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let price = ui.number_input("Price", 9.99);
     /// ```
     pub fn number_input(&mut self, label: &str, default: f64) -> f64 {
@@ -178,7 +196,10 @@ impl<'a> Ui<'a> {
     /// Returns the current integer value.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let count = ui.int_input("Count", 42);
     /// ```
     pub fn int_input(&mut self, label: &str, default: i64) -> i64 {
@@ -197,7 +218,10 @@ impl<'a> Ui<'a> {
     /// Returns the current slider value.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let weight = ui.slider("Weight", 0.0..=1.0);
     /// ```
     pub fn slider(&mut self, label: &str, range: std::ops::RangeInclusive<f64>) -> f64 {
@@ -221,7 +245,10 @@ impl<'a> Ui<'a> {
     /// Returns the current on/off state.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let dark = ui.toggle("Dark mode", false);
     /// ```
     pub fn toggle(&mut self, label: &str, default: bool) -> bool {
@@ -240,7 +267,10 @@ impl<'a> Ui<'a> {
     /// Returns the currently selected option.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let size = ui.radio("Size", &["S", "M", "L"]);
     /// ```
     pub fn radio(&mut self, label: &str, options: &[&str]) -> String {
@@ -260,7 +290,10 @@ impl<'a> Ui<'a> {
     /// Returns the currently selected option.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let country = ui.select("Country", &["US", "UK", "DE"]);
     /// ```
     pub fn select(&mut self, label: &str, options: &[&str]) -> String {
@@ -279,7 +312,10 @@ impl<'a> Ui<'a> {
     /// Alias for [`select`](Self::select) — Streamlit compatibility.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let choice = ui.selectbox("Pick one", &["A", "B", "C"]);
     /// ```
     pub fn selectbox(&mut self, label: &str, options: &[&str]) -> String {
@@ -291,7 +327,10 @@ impl<'a> Ui<'a> {
     /// Returns a list of currently selected options.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let tags = ui.multi_select("Tags", &["rust", "python", "go"]);
     /// ```
     pub fn multi_select(&mut self, label: &str, options: &[&str]) -> Vec<String> {
@@ -312,7 +351,10 @@ impl<'a> Ui<'a> {
     /// Returns the current text content.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let bio = ui.text_area("Bio", "Tell us about yourself", 5);
     /// ```
     pub fn text_area(&mut self, label: &str, default: &str, rows: u32) -> String {
@@ -331,7 +373,10 @@ impl<'a> Ui<'a> {
     /// Returns a hex color string like `"#ff0000"`.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let color = ui.color_picker("Theme color");
     /// ```
     pub fn color_picker(&mut self, label: &str) -> String {
@@ -352,7 +397,10 @@ impl<'a> Ui<'a> {
     /// Default is an empty string (no date selected).
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let date = ui.date_picker("Start date");
     /// ```
     pub fn date_picker(&mut self, label: &str) -> String {
@@ -373,7 +421,10 @@ impl<'a> Ui<'a> {
     /// string if no file has been uploaded yet.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let file_data = ui.file_upload("Upload CSV");
     /// if !file_data.is_empty() {
     ///     ui.write(format!("Received {} bytes", file_data.len()));
@@ -397,7 +448,10 @@ impl<'a> Ui<'a> {
     /// if no image has been uploaded yet. Only accepts image files.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let img_data = ui.image_upload("Upload photo");
     /// if !img_data.is_empty() {
     ///     ui.image(&img_data, "Uploaded photo");
@@ -418,7 +472,10 @@ impl<'a> Ui<'a> {
     /// Display an image from a URL or base64-encoded data URI.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.image("https://example.com/logo.png", "Company Logo");
     /// ```
     pub fn image(&mut self, src: &str, caption: &str) {
@@ -430,7 +487,10 @@ impl<'a> Ui<'a> {
     /// Display an audio player from a URL or base64-encoded data URI.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.audio("https://example.com/clip.mp3", "mp3");
     /// ```
     pub fn audio(&mut self, src: &str, format: &str) {
@@ -444,7 +504,10 @@ impl<'a> Ui<'a> {
     /// Supported formats: `"mp4"`, `"webm"`, `"ogg"`.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.video("https://example.com/clip.mp4", "mp4");
     /// ```
     pub fn video(&mut self, src: &str, format: &str) {
@@ -458,8 +521,11 @@ impl<'a> Ui<'a> {
     /// The `data` is served as a base64-encoded data URI.
     ///
     /// # Example
-    /// ```ignore
-    /// ui.download_button("Export CSV", csv_bytes.as_bytes(), "data.csv");
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
+    /// ui.download_button("Export CSV", "a,b,c".as_bytes(), "data.csv");
     /// ```
     pub fn download_button(&mut self, label: &str, data: &[u8], filename: &str) {
         let widget_id = self.next_widget_id(label);
@@ -476,7 +542,10 @@ impl<'a> Ui<'a> {
     /// Opens in a new tab with `target="_blank"` and `rel="noopener noreferrer"`.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.link("RustView Docs", "https://github.com/example/rustview");
     /// ```
     pub fn link(&mut self, text: &str, url: &str) {
@@ -490,8 +559,11 @@ impl<'a> Ui<'a> {
     /// Universal display widget — renders any `Display` type as text.
     ///
     /// # Example
-    /// ```ignore
-    /// ui.write(format!("Hello, {}!", name));
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
+    /// ui.write(format!("Hello, {}!", "World"));
     /// ui.write(42);
     /// ```
     pub fn write(&mut self, value: impl Display) {
@@ -503,7 +575,10 @@ impl<'a> Ui<'a> {
     /// Display markdown text.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.markdown("# Hello\n\nThis is **bold**.");
     /// ```
     pub fn markdown(&mut self, text: &str) {
@@ -517,7 +592,10 @@ impl<'a> Ui<'a> {
     /// `value` should be between 0.0 and 1.0.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.progress(0.75);
     /// ```
     pub fn progress(&mut self, value: f64) {
@@ -529,7 +607,10 @@ impl<'a> Ui<'a> {
     /// Display an error message.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.error("Something went wrong!");
     /// ```
     pub fn error(&mut self, message: &str) {
@@ -541,7 +622,10 @@ impl<'a> Ui<'a> {
     /// Display a heading (h1).
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.heading("Dashboard");
     /// ```
     pub fn heading(&mut self, text: &str) {
@@ -553,7 +637,10 @@ impl<'a> Ui<'a> {
     /// Display a subheading (h2).
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.subheading("Details");
     /// ```
     pub fn subheading(&mut self, text: &str) {
@@ -565,7 +652,10 @@ impl<'a> Ui<'a> {
     /// Display a caption (small text).
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.caption("Last updated 5 minutes ago");
     /// ```
     pub fn caption(&mut self, text: &str) {
@@ -577,7 +667,10 @@ impl<'a> Ui<'a> {
     /// Display a code block with syntax highlighting hint.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.code("fn main() {}", "rust");
     /// ```
     pub fn code(&mut self, source: &str, language: &str) {
@@ -589,7 +682,10 @@ impl<'a> Ui<'a> {
     /// Display a JSON value in a formatted code block.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.json(&serde_json::json!({"key": "value"}));
     /// ```
     pub fn json(&mut self, value: &impl Serialize) {
@@ -602,7 +698,10 @@ impl<'a> Ui<'a> {
     /// Display a table with headers and rows.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.table(&["Name", "Age"], &[vec!["Alice".into(), "30".into()]]);
     /// ```
     pub fn table(&mut self, headers: &[&str], rows: &[Vec<String>]) {
@@ -618,7 +717,10 @@ impl<'a> Ui<'a> {
     /// `rows` is a slice of rows, each a `Vec<String>`.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.dataframe(
     ///     &[("Name", "str"), ("Age", "i64")],
     ///     &[
@@ -642,7 +744,10 @@ impl<'a> Ui<'a> {
     /// Display a spinner with a label.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.spinner("Loading...");
     /// ```
     pub fn spinner(&mut self, label: &str) {
@@ -654,7 +759,10 @@ impl<'a> Ui<'a> {
     /// Display a metric tile with label, value, and optional delta.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.metric("Users", 1234, Some(5.2));
     /// ```
     pub fn metric(&mut self, label: &str, value: impl Display, delta: Option<f64>) {
@@ -667,7 +775,10 @@ impl<'a> Ui<'a> {
     /// Display a success alert.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.success("Operation completed!");
     /// ```
     pub fn success(&mut self, message: &str) {
@@ -679,7 +790,10 @@ impl<'a> Ui<'a> {
     /// Display a warning alert.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.warning("Disk space low.");
     /// ```
     pub fn warning(&mut self, message: &str) {
@@ -691,7 +805,10 @@ impl<'a> Ui<'a> {
     /// Display an info alert.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.info("New version available.");
     /// ```
     pub fn info(&mut self, message: &str) {
@@ -705,7 +822,10 @@ impl<'a> Ui<'a> {
     /// `level` can be `"success"`, `"info"`, `"warning"`, or `"error"`.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.toast("Saved!", "success");
     /// ```
     pub fn toast(&mut self, message: &str, level: &str) {
@@ -717,7 +837,10 @@ impl<'a> Ui<'a> {
     /// Display a horizontal divider.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.divider();
     /// ```
     pub fn divider(&mut self) {
@@ -731,7 +854,10 @@ impl<'a> Ui<'a> {
     /// You can also pass any valid CSS color value.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.badge("Active", "green");
     /// ui.badge("Pending", "yellow");
     /// ui.badge("Error", "red");
@@ -749,7 +875,10 @@ impl<'a> Ui<'a> {
     /// Returns the current value for the key, or the default if not set.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let count = ui.get_state::<i64>("counter", 0);
     /// if ui.button("Increment") {
     ///     ui.set_state("counter", count + 1);
@@ -790,7 +919,10 @@ impl<'a> Ui<'a> {
     /// Render widgets inside a generic container.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.container(|inner| {
     ///     inner.write("Inside a container");
     /// });
@@ -808,7 +940,10 @@ impl<'a> Ui<'a> {
     /// Render widgets inside a sidebar panel.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.sidebar(|sb| {
     ///     sb.write("Sidebar content");
     /// });
@@ -826,7 +961,10 @@ impl<'a> Ui<'a> {
     /// Render widgets inside a collapsible expander section.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.expander("Advanced", |inner| {
     ///     inner.write("Hidden until expanded");
     /// });
@@ -857,7 +995,10 @@ impl<'a> Ui<'a> {
     /// Provide column ratios and a builder closure for each column.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.columns(&[1, 2], &[
     ///     &|col: &mut Ui| { col.write("Left"); },
     ///     &|col: &mut Ui| { col.write("Right"); },
@@ -888,7 +1029,10 @@ impl<'a> Ui<'a> {
     /// The closure receives a `&mut Ui` to populate the active tab's content.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let active = ui.tabs(&["Tab A", "Tab B"], |inner| {
     ///     inner.write("Active tab content");
     /// });
@@ -921,7 +1065,10 @@ impl<'a> Ui<'a> {
     /// Render widgets inside a horizontal flex row.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.row(|r| {
     ///     r.button("A");
     ///     r.button("B");
@@ -943,7 +1090,10 @@ impl<'a> Ui<'a> {
     /// Returns the widget ID that can be used to reference this slot.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let slot_id = ui.empty();
     /// // The slot exists in the tree as an empty div
     /// ```
@@ -959,7 +1109,10 @@ impl<'a> Ui<'a> {
     /// closes it. The closure populates the modal body content.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let open = ui.modal("Settings", "Open Settings", |inner| {
     ///     inner.write("Modal content here");
     /// });
@@ -1013,10 +1166,13 @@ impl<'a> Ui<'a> {
     /// return value is `true` on the re-run triggered by the submit click.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let submitted = ui.form("user_form", |ui| {
     ///     ui.text_input("Name", "");
-    ///     ui.number_input("Age", 0.0, 0.0, 150.0);
+    ///     ui.number_input("Age", 30.0);
     /// });
     /// if submitted {
     ///     ui.success("Form submitted!");
@@ -1052,7 +1208,10 @@ impl<'a> Ui<'a> {
     /// This should be called inside a `ui.form()` closure.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.form("my_form", |ui| {
     ///     ui.text_input("Email", "");
     ///     ui.form_submit_button("Submit");
@@ -1071,7 +1230,10 @@ impl<'a> Ui<'a> {
     /// Renders as an inline SVG with no external dependencies.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let data: Vec<(f64, f64)> = (0..10).map(|i| (i as f64, (i * i) as f64)).collect();
     /// ui.line_chart("f(x) = x²", &data);
     /// ```
@@ -1086,7 +1248,10 @@ impl<'a> Ui<'a> {
     /// Renders as an inline SVG with no external dependencies.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// ui.bar_chart("Sales", &[("Q1", 100.0), ("Q2", 150.0), ("Q3", 120.0)]);
     /// ```
     pub fn bar_chart(&mut self, title: &str, data: &[(&str, f64)]) {
@@ -1100,7 +1265,10 @@ impl<'a> Ui<'a> {
     /// Renders as an inline SVG with no external dependencies.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let data = vec![(1.0, 2.0), (3.0, 4.0), (5.0, 1.0)];
     /// ui.scatter_chart("Scatter", &data);
     /// ```
@@ -1115,7 +1283,10 @@ impl<'a> Ui<'a> {
     /// Bins the data into `bins` equal-width buckets and renders as an inline SVG.
     ///
     /// # Example
-    /// ```ignore
+    /// ```rust
+    /// # use rustview::prelude::*;
+    /// # let mut session = rustview::session::Session::new();
+    /// # let mut ui = Ui::new(&mut session);
     /// let values = vec![1.0, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0];
     /// ui.histogram("Distribution", &values, 5);
     /// ```

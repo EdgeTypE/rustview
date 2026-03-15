@@ -8,6 +8,11 @@ edition = "2021"
 rust-version = "1.75"
 license = "MIT OR Apache-2.0"
 description = "A Streamlit/Gradio equivalent for pure Rust — turn a function into a live browser UI"
+readme = "README.md"
+repository = "https://github.com/EdgeTypE/rustview"
+homepage = "https://github.com/EdgeTypE/rustview"
+keywords = ["ui", "web", "gui", "streamlit", "gradio"]
+categories = ["gui", "web-programming", "visualization"]
 
 [dependencies]
 rustview-macros = { version = "0.1.0", path = "rustview-macros" }

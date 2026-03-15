@@ -5,6 +5,8 @@ edition = "2021"
 rust-version = "1.75"
 license = "MIT OR Apache-2.0"
 description = "Proc-macros for RustView (#[cached], #[rustview::app])"
+repository = "https://github.com/EdgeTypE/rustview"
+homepage = "https://github.com/EdgeTypE/rustview"
 
 [lib]
 proc-macro = true
