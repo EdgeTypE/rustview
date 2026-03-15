@@ -1,0 +1,39 @@
+[workspace]
+members = [".", "rustview-macros"]
+
+[package]
+name = "rustview"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+license = "MIT OR Apache-2.0"
+description = "A Streamlit/Gradio equivalent for pure Rust — turn a function into a live browser UI"
+
+[dependencies]
+rustview-macros = { version = "0.1.0", path = "rustview-macros" }
+axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["cors", "fs"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+dashmap = "6"
+uuid = { version = "1", features = ["v4", "serde"] }
+fnv = "1"
+once_cell = "1"
+bytes = "1"
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+async-stream = "0.3"
+futures-core = "0.3"
+base64 = "0.22.1"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+reqwest = { version = "0.12", features = ["json"] }
+tokio-test = "0.4"
+
+[[bench]]
+name = "vdom_bench"
+harness = false
