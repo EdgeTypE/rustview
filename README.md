@@ -4,9 +4,20 @@ A Streamlit/Gradio equivalent for pure Rust. Write a plain Rust function, and
 RustView turns it into a live browser UI -- no HTML, no JavaScript, no frontend
 build step.
 
-The project is under active development. The core widget set and layout system
+**The project is under active development.** The core widget set and layout system
 are usable today, but the API is not yet stable. Expect breaking changes before
 a 1.0 release.
+
+## Why RustView?
+
+If you've used Streamlit or Gradio in Python, you know how fast you can go from
+an idea to a working UI. RustView brings that same experience to Rust. No HTML,
+no CSS, no JavaScript, no npm, no build step. Just a function.
+
+This makes it a good fit when you already have Rust code and want to put a UI
+on it without switching languages or maintaining a separate frontend. Internal
+tools, ML model demos, data explorers, system dashboards: anything where you
+want a real browser UI without the overhead of a full web stack.
 
 ## Quick Start
 
