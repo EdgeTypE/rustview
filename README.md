@@ -76,6 +76,12 @@ cargo run --example dashboard   # multi-column layout with charts
 cargo run --example showcase    # every widget on a single page
 ```
 
+## Built with RustView
+
+Here are some projects powered by RustView:
+
+- [OldTurkicOCR](https://github.com/EdgeTypE/OldTurkicOCR) - An Optical Character Recognition tool for Old Turkic (Orkhon) script.
+
 ## Configuration
 
 ```rust
