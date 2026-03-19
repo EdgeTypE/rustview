@@ -5,7 +5,7 @@ use rustview::ui::Ui;
 fn test_app(ui: &mut Ui) {
     let name = ui.text_input("Name", "World");
     ui.write(format!("Hello, {}!", name));
-    let n = ui.int_slider("Count", 0..=100);
+    let n = ui.int_slider("Count", 0..=100, 50);
     ui.progress(n as f64 / 100.0);
     if ui.checkbox("Show error", false) {
         ui.error("Test error");

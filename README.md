@@ -25,7 +25,7 @@ Add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-rustview = "0.1"
+rustview = "0.1.3"
 ```
 
 Or use `cargo add`:
@@ -41,7 +41,7 @@ use rustview::prelude::*;
 
 fn app(ui: &mut Ui) {
     let name = ui.text_input("Your name", "World");
-    let times = ui.int_slider("Repeat", 1..=10);
+    let times = ui.int_slider("Repeat", 1..=10, 3);
     for _ in 0..times {
         ui.write(format!("Hello, {}!", name));
     }

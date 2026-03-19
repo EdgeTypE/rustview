@@ -97,20 +97,26 @@ impl<'a> Ui<'a> {
 
     /// Create an integer slider widget.
     ///
-    /// Returns the current slider value.
+    /// Returns the current slider value. The `default` is used on first
+    /// render when the user has not yet interacted with the slider.
     ///
     /// # Example
     /// ```rust
     /// # use rustview::prelude::*;
     /// # let mut session = rustview::session::Session::new();
     /// # let mut ui = Ui::new(&mut session);
-    /// let count = ui.int_slider("Repeat", 1..=10);
+    /// let count = ui.int_slider("Repeat", 1..=10, 5);
     /// ```
-    pub fn int_slider(&mut self, label: &str, range: std::ops::RangeInclusive<i64>) -> i64 {
+    pub fn int_slider(
+        &mut self,
+        label: &str,
+        range: std::ops::RangeInclusive<i64>,
+        default: i64,
+    ) -> i64 {
         let widget_id = self.next_widget_id(label);
         let min = *range.start();
         let max = *range.end();
-        let default = min;
+        let default = default.clamp(min, max);
         let value = self
             .session
             .get_widget_value(&widget_id, serde_json::json!(default));
@@ -215,21 +221,27 @@ impl<'a> Ui<'a> {
 
     /// Create a float slider widget.
     ///
-    /// Returns the current slider value.
+    /// Returns the current slider value. The `default` is used on first
+    /// render when the user has not yet interacted with the slider.
     ///
     /// # Example
     /// ```rust
     /// # use rustview::prelude::*;
     /// # let mut session = rustview::session::Session::new();
     /// # let mut ui = Ui::new(&mut session);
-    /// let weight = ui.slider("Weight", 0.0..=1.0);
+    /// let weight = ui.slider("Weight", 0.0..=1.0, 0.5);
     /// ```
-    pub fn slider(&mut self, label: &str, range: std::ops::RangeInclusive<f64>) -> f64 {
+    pub fn slider(
+        &mut self,
+        label: &str,
+        range: std::ops::RangeInclusive<f64>,
+        default: f64,
+    ) -> f64 {
         let widget_id = self.next_widget_id(label);
         let min = *range.start();
         let max = *range.end();
         let step = (max - min) / DEFAULT_SLIDER_STEPS;
-        let default = min;
+        let default = default.clamp(min, max);
         let value = self
             .session
             .get_widget_value(&widget_id, serde_json::json!(default));
@@ -1339,8 +1351,8 @@ mod tests {
     fn test_int_slider_default() {
         let mut session = Session::new();
         let mut ui = Ui::new(&mut session);
-        let val = ui.int_slider("Count", 1..=10);
-        assert_eq!(val, 1); // min value
+        let val = ui.int_slider("Count", 1..=10, 5);
+        assert_eq!(val, 5); // user-specified default
     }
 
     #[test]
@@ -1352,7 +1364,7 @@ mod tests {
             session.set_widget_value(&widget_id, serde_json::json!(999));
         }
         let mut ui = Ui::new(&mut session);
-        let val = ui.int_slider("Count", 1..=10);
+        let val = ui.int_slider("Count", 1..=10, 5);
         assert_eq!(val, 10); // clamped to max
     }
 
@@ -1462,8 +1474,8 @@ mod tests {
     fn test_slider_default() {
         let mut session = Session::new();
         let mut ui = Ui::new(&mut session);
-        let val = ui.slider("Weight", 0.0..=1.0);
-        assert!((val - 0.0).abs() < f64::EPSILON);
+        let val = ui.slider("Weight", 0.0..=1.0, 0.5);
+        assert!((val - 0.5).abs() < f64::EPSILON);
     }
 
     #[test]

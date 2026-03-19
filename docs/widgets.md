@@ -74,7 +74,7 @@ let age = ui.int_input("Age", 25);
 Float slider widget.
 
 ```rust
-let ratio = ui.slider("Ratio", 0.0..=1.0);
+let ratio = ui.slider("Ratio", 0.0..=1.0, 0.5);
 // ratio: f64
 ```
 
@@ -82,6 +82,7 @@ let ratio = ui.slider("Ratio", 0.0..=1.0);
 |-----------|------|-------------|
 | `label` | `&str` | Label with current value shown |
 | `range` | `RangeInclusive<f64>` | Min..=Max range |
+| `default` | `f64` | Initial value before user interaction |
 | **Returns** | `f64` | Current slider value |
 
 ### `int_slider`
@@ -89,7 +90,7 @@ let ratio = ui.slider("Ratio", 0.0..=1.0);
 Integer slider widget.
 
 ```rust
-let score = ui.int_slider("Score", 0..=100);
+let score = ui.int_slider("Score", 0..=100, 50);
 // score: i64
 ```
 
@@ -97,6 +98,7 @@ let score = ui.int_slider("Score", 0..=100);
 |-----------|------|-------------|
 | `label` | `&str` | Label with current value shown |
 | `range` | `RangeInclusive<i64>` | Min..=Max range |
+| `default` | `i64` | Initial value before user interaction |
 | **Returns** | `i64` | Current slider value |
 
 ### `checkbox`

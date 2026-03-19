@@ -283,7 +283,7 @@ mod tests {
     }
 
     fn slider_app(ui: &mut Ui) {
-        let val = ui.int_slider("Amount", 0..=100);
+        let val = ui.int_slider("Amount", 0..=100, 50);
         ui.write(format!("Amount: {}", val));
     }
 

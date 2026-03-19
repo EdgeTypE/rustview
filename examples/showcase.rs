@@ -42,8 +42,8 @@ fn showcase(ui: &mut Ui) {
                 col.caption("Numeric Inputs");
                 let age = col.int_input("Age", 25);
                 let weight = col.number_input("Weight (kg)", 70.5);
-                let score = col.int_slider("Score", 0..=100);
-                let ratio = col.slider("Ratio", 0.0..=1.0);
+                let score = col.int_slider("Score", 0..=100, 50);
+                let ratio = col.slider("Ratio", 0.0..=1.0, 0.5);
                 col.write(format!(
                     "Age: {}, Weight: {:.1}, Score: {}, Ratio: {:.2}",
                     age, weight, score, ratio

@@ -30,7 +30,7 @@ fn dashboard(ui: &mut Ui) {
     let name = ui.text_input("Project name", "My App");
     let priority = ui.select("Priority", &["Low", "Medium", "High"]);
     let dark_mode = ui.toggle("Dark mode", true);
-    let threshold = ui.slider("Threshold", 0.0..=1.0);
+    let threshold = ui.slider("Threshold", 0.0..=1.0, 0.5);
     let notes = ui.text_area("Notes", "", 3);
     let color = ui.color_picker("Accent color");
 
