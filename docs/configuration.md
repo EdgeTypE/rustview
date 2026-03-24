@@ -13,6 +13,7 @@ let config = RustViewConfig {
     session_ttl_secs: 3600,                     // Session timeout (1 hour)
     max_upload_bytes: 10_000_000,               // 10 MB upload limit
     theme: Theme::default(),                    // Custom theme
+    layout: Layout::default(),                  // Layout options
 };
 
 rustview::run_with_config(app, config);
@@ -25,6 +26,32 @@ rustview::run_with_config(app, config);
 | `session_ttl_secs` | `u64` | `86400` | Session TTL in seconds (24h) |
 | `max_upload_bytes` | `usize` | `52_428_800` | Max upload size (50 MB) |
 | `theme` | `Theme` | Dark theme | Color theme |
+| `layout` | `Layout` | Full width, 2rem padding | Body layout options |
+
+---
+
+## Layout
+
+The `Layout` struct controls the maximum width and padding of the application body:
+
+```rust
+use rustview::prelude::*;
+
+let layout = Layout {
+    max_width_percent: 80,         // 80% of the viewport
+    padding: "3rem 1rem".into(),   // Custom padding
+};
+
+let config = RustViewConfig {
+    layout,
+    ..Default::default()
+};
+```
+
+| Field | CSS Variable | Default | Description |
+|-------|-------------|---------|-------------|
+| `max_width_percent` | `--rustview-max-width` | `100` | Maximum body width as a percentage of the viewport (1–100) |
+| `padding` | `--rustview-padding` | `"2rem"` | CSS padding for the app body |
 
 ---
 

@@ -39,7 +39,7 @@ pub use interface::Interface;
 /// Prelude — import everything needed to write a RustView app.
 pub mod prelude {
     pub use crate::interface::{Interface, WidgetInput, WidgetOutput};
-    pub use crate::server::{RustViewConfig, Theme};
+    pub use crate::server::{Layout, RustViewConfig, Theme};
     pub use crate::ui::Ui;
 }
 

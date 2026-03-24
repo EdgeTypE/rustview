@@ -2,6 +2,7 @@
 ///
 /// Run with: cargo run --example showcase
 use rustview::prelude::*;
+use rustview::server::Layout;
 
 fn showcase(ui: &mut Ui) {
     // ── Header ──────────────────────────────────────────────────────
@@ -400,5 +401,15 @@ fn showcase(ui: &mut Ui) {
 }
 
 fn main() {
-    rustview::run(showcase);
+    let layout = Layout {
+        max_width_percent: 80,
+        padding: "3rem 1rem".into(),
+    };
+
+    let config = RustViewConfig {
+        layout,
+        ..Default::default()
+    };
+
+    rustview::run_with_config(showcase, config);
 }
