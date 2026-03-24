@@ -32,15 +32,25 @@ rustview::run_with_config(app, config);
 
 ## Layout
 
-The `Layout` struct controls the maximum width and padding of the application body:
+The `Layout` struct controls the maximum width and padding of the application body.
+Only set the fields you need — unspecified fields keep their defaults:
 
 ```rust
 use rustview::prelude::*;
 
+// Builder pattern — set only what you need:
+let layout = Layout::default().with_max_width(80);
+
+// Struct update syntax also works:
 let layout = Layout {
-    max_width_percent: 80,         // 80% of the viewport
-    padding: "3rem 1rem".into(),   // Custom padding
+    max_width_percent: 80,
+    ..Default::default()
 };
+
+// Or set everything explicitly:
+let layout = Layout::default()
+    .with_max_width(80)
+    .with_padding("3rem 1rem");
 
 let config = RustViewConfig {
     layout,
@@ -52,6 +62,14 @@ let config = RustViewConfig {
 |-------|-------------|---------|-------------|
 | `max_width_percent` | `--rustview-max-width` | `100` | Maximum body width as a percentage of the viewport (1–100) |
 | `padding` | `--rustview-padding` | `"2rem"` | CSS padding for the app body |
+
+### Builder Methods
+
+| Method | Description |
+|--------|-------------|
+| `Layout::default().with_max_width(80)` | Set only width, keep default padding |
+| `Layout::default().with_padding("3rem")` | Set only padding, keep default width |
+| `.with_max_width(n).with_padding(s)` | Chain both |
 
 ---
 

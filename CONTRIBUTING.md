@@ -88,7 +88,7 @@ starting a server. See `docs/testing.md` for patterns and examples.
 - Follow standard `rustfmt` formatting.
 - Prefer returning values from widgets rather than using callbacks.
 - Keep the JavaScript shim in `server/mod.rs` minimal. It currently weighs
-  around 4 KB with no external dependencies.
+  around 12 KB with no external dependencies.
 - CSS class names use the `rustview-` prefix. CSS custom properties use
   `--rustview-`.
 

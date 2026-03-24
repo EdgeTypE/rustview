@@ -34,9 +34,13 @@ use crate::vdom::{self, Patch, VNode};
 /// ```
 /// use rustview::server::Layout;
 ///
+/// // Builder pattern — only set what you need:
+/// let layout = Layout::default().with_max_width(80);
+///
+/// // Struct update syntax also works:
 /// let layout = Layout {
 ///     max_width_percent: 80,
-///     padding: "3rem".into(),
+///     ..Default::default()
 /// };
 /// ```
 #[derive(Debug, Clone)]
@@ -59,6 +63,34 @@ impl Default for Layout {
 }
 
 impl Layout {
+    /// Set the maximum width as a percentage of the viewport (1–100).
+    ///
+    /// # Example
+    /// ```
+    /// use rustview::server::Layout;
+    /// let layout = Layout::default().with_max_width(80);
+    /// assert_eq!(layout.max_width_percent, 80);
+    /// assert_eq!(layout.padding, "2rem"); // keeps default
+    /// ```
+    pub fn with_max_width(mut self, percent: u8) -> Self {
+        self.max_width_percent = percent;
+        self
+    }
+
+    /// Set the CSS padding for the app body.
+    ///
+    /// # Example
+    /// ```
+    /// use rustview::server::Layout;
+    /// let layout = Layout::default().with_padding("3rem 1rem");
+    /// assert_eq!(layout.padding, "3rem 1rem");
+    /// assert_eq!(layout.max_width_percent, 100); // keeps default
+    /// ```
+    pub fn with_padding(mut self, padding: &str) -> Self {
+        self.padding = padding.to_string();
+        self
+    }
+
     /// Generate CSS custom property declarations for this layout.
     pub fn to_css_vars(&self) -> String {
         let pct = self.max_width_percent.clamp(1, 100);
@@ -1417,10 +1449,45 @@ mod tests {
     fn test_layout_clamps_percentage() {
         let layout = Layout {
             max_width_percent: 0, // below minimum
-            padding: "1rem".into(),
+            ..Default::default()
         };
         let css = layout.to_css_vars();
         assert!(css.contains("--rustview-max-width: 1%"));
+    }
+
+    #[test]
+    fn test_layout_builder_max_width_only() {
+        let layout = Layout::default().with_max_width(80);
+        assert_eq!(layout.max_width_percent, 80);
+        assert_eq!(layout.padding, "2rem"); // default preserved
+        let css = layout.to_css_vars();
+        assert!(css.contains("--rustview-max-width: 80%"));
+        assert!(css.contains("--rustview-padding: 2rem"));
+    }
+
+    #[test]
+    fn test_layout_builder_padding_only() {
+        let layout = Layout::default().with_padding("3rem 1rem");
+        assert_eq!(layout.max_width_percent, 100); // default preserved
+        assert_eq!(layout.padding, "3rem 1rem");
+    }
+
+    #[test]
+    fn test_layout_builder_chained() {
+        let layout = Layout::default().with_max_width(60).with_padding("1rem");
+        assert_eq!(layout.max_width_percent, 60);
+        assert_eq!(layout.padding, "1rem");
+    }
+
+    #[test]
+    fn test_layout_struct_update_partial() {
+        // User can set only max_width_percent, padding gets default
+        let layout = Layout {
+            max_width_percent: 80,
+            ..Default::default()
+        };
+        assert_eq!(layout.max_width_percent, 80);
+        assert_eq!(layout.padding, "2rem");
     }
 
     #[test]

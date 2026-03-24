@@ -19,13 +19,15 @@ on it without switching languages or maintaining a separate frontend. Internal
 tools, ML model demos, data explorers, system dashboards: anything where you
 want a real browser UI without the overhead of a full web stack.
 
+![examples/showcase.rs cargo run --example showcase](https://cdn.goygoyengine.com/images/1774340095471-adb1429bc819b740.gif)
+
 ## Quick Start
 
 Add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-rustview = "0.1.3"
+rustview = "0.1.4"
 ```
 
 Or use `cargo add`:
@@ -61,7 +63,7 @@ cargo run
 
 ## Features
 
-RustView ships 56+ widgets across these categories:
+RustView ships 50+ widgets across these categories:
 
 | Category | Widgets |
 |----------|---------|
@@ -166,7 +168,7 @@ RustView uses a thin-client / server-rendered model:
 - An Axum HTTP server runs the app function and maintains a virtual DOM per session.
 - On each user interaction the server diffs the old and new trees and sends
   JSON patches over SSE or as a POST response.
-- A small (~4 KB) vanilla JS shim in the browser applies patches and forwards
+- A lightweight (~12 KB) vanilla JS shim in the browser applies patches and forwards
   events back to the server.
 - Session state is stored in-memory with a configurable TTL (default 24 hours).
 - The `#[cached]` proc-macro can cache expensive computations across renders.
@@ -207,7 +209,7 @@ depending on community feedback.
 **Done**
 
 - Publish to crates.io
-- Core widget set (56+ widgets across input, output, layout, charts)
+- Core widget set (50+ widgets across input, output, layout, charts)
 - Immediate-mode rendering with virtual DOM diffing
 - Session state and user-defined state
 - SSE-based live updates
@@ -221,7 +223,7 @@ depending on community feedback.
 - Add accessibility attributes (ARIA roles, keyboard navigation)
 - WebSocket transport option alongside SSE
 - File download improvements (streaming large files)
-- Stabilize the public API and release v0.1 as a proper crate
+- Stabilize the public API
 
 **Medium-term**
 
