@@ -17,7 +17,7 @@ fn showcase(ui: &mut Ui) {
         sb.divider();
 
         sb.subheading("Quick Filters");
-        let _dark = sb.toggle("Dark mode", false);
+        let _dark = sb.toggle("Dark mode", true);
         let _lang = sb.radio("Language", &["Rust", "Python", "Go"]);
         let _priority = sb.select("Priority", &["All", "High", "Medium", "Low"]);
 
@@ -408,6 +408,7 @@ fn main() {
 
     let config = RustViewConfig {
         layout,
+        open_browser: true,
         ..Default::default()
     };
 

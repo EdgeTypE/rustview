@@ -30,6 +30,10 @@ use crate::vdom::{self, Patch, VNode};
 /// All values are injected as CSS custom properties so they work with
 /// the existing theming system.
 ///
+/// When `max_width_percent` is `0` (the default), the built-in CSS
+/// default of `800px` is used — so apps look good even without any
+/// layout configuration.
+///
 /// # Example
 /// ```
 /// use rustview::server::Layout;
@@ -46,7 +50,8 @@ use crate::vdom::{self, Patch, VNode};
 #[derive(Debug, Clone)]
 pub struct Layout {
     /// Maximum width of the app body as a percentage of the viewport (1–100).
-    /// Default: 100.
+    /// Set to `0` to use the built-in CSS default of `800px`.
+    /// Default: `0` (uses 800px).
     pub max_width_percent: u8,
     /// CSS padding for the app body.
     /// Default: `"2rem"`.
@@ -56,7 +61,7 @@ pub struct Layout {
 impl Default for Layout {
     fn default() -> Self {
         Self {
-            max_width_percent: 100,
+            max_width_percent: 0,
             padding: "2rem".to_string(),
         }
     }
@@ -64,6 +69,9 @@ impl Default for Layout {
 
 impl Layout {
     /// Set the maximum width as a percentage of the viewport (1–100).
+    ///
+    /// The value is clamped to 1–100. RustView converts it to CSS
+    /// automatically — just pass a plain integer.
     ///
     /// # Example
     /// ```
@@ -73,7 +81,7 @@ impl Layout {
     /// assert_eq!(layout.padding, "2rem"); // keeps default
     /// ```
     pub fn with_max_width(mut self, percent: u8) -> Self {
-        self.max_width_percent = percent;
+        self.max_width_percent = percent.clamp(1, 100);
         self
     }
 
@@ -84,7 +92,7 @@ impl Layout {
     /// use rustview::server::Layout;
     /// let layout = Layout::default().with_padding("3rem 1rem");
     /// assert_eq!(layout.padding, "3rem 1rem");
-    /// assert_eq!(layout.max_width_percent, 100); // keeps default
+    /// assert_eq!(layout.max_width_percent, 0); // keeps default
     /// ```
     pub fn with_padding(mut self, padding: &str) -> Self {
         self.padding = padding.to_string();
@@ -92,12 +100,17 @@ impl Layout {
     }
 
     /// Generate CSS custom property declarations for this layout.
+    ///
+    /// When `max_width_percent` is 0, the `--rustview-max-width` variable
+    /// is not emitted, letting the CSS `:root` default of `800px` apply.
     pub fn to_css_vars(&self) -> String {
-        let pct = self.max_width_percent.clamp(1, 100);
-        format!(
-            "--rustview-max-width: {}%;\n  --rustview-padding: {};",
-            pct, self.padding
-        )
+        let padding_decl = format!("--rustview-padding: {};", self.padding);
+        if self.max_width_percent == 0 {
+            padding_decl
+        } else {
+            let pct = self.max_width_percent.clamp(1, 100);
+            format!("--rustview-max-width: {}%;\n  {}", pct, padding_decl)
+        }
     }
 }
 
@@ -160,6 +173,8 @@ pub struct RustViewConfig {
     pub theme: Theme,
     /// Layout options controlling max width and padding of the app body.
     pub layout: Layout,
+    /// Automatically open the browser on startup. Default: false.
+    pub open_browser: bool,
 }
 
 impl Default for RustViewConfig {
@@ -171,6 +186,7 @@ impl Default for RustViewConfig {
             max_upload_bytes: 52_428_800,
             theme: Theme::default(),
             layout: Layout::default(),
+            open_browser: false,
         }
     }
 }
@@ -477,6 +493,13 @@ pub async fn run_with_config(
 
     tracing::info!("RustView running at http://{}", state.config.bind);
 
+    if state.config.open_browser {
+        let url = format!("http://{}", state.config.bind);
+        if let Err(e) = webbrowser::open(&url) {
+            tracing::error!("Failed to open browser: {}", e);
+        }
+    }
+
     if !state.config.bind.ip().is_loopback() {
         tracing::warn!(
             "WARNING: RustView is exposed on the network. \
@@ -497,7 +520,7 @@ const CSS: &str = r#"
     --rustview-secondary-bg: #262730;
     --rustview-border: #4a4a5a;
     --rustview-text-secondary: #a3a8b8;
-    --rustview-max-width: 100%;
+    --rustview-max-width: 800px;
     --rustview-padding: 2rem;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1422,15 +1445,16 @@ mod tests {
     #[test]
     fn test_layout_default() {
         let layout = Layout::default();
-        assert_eq!(layout.max_width_percent, 100);
+        assert_eq!(layout.max_width_percent, 0);
         assert_eq!(layout.padding, "2rem");
     }
 
     #[test]
-    fn test_layout_to_css_vars() {
+    fn test_layout_to_css_vars_default() {
         let layout = Layout::default();
         let css = layout.to_css_vars();
-        assert!(css.contains("--rustview-max-width: 100%"));
+        // Default (0) should NOT emit --rustview-max-width, letting CSS 800px apply
+        assert!(!css.contains("--rustview-max-width"));
         assert!(css.contains("--rustview-padding: 2rem"));
     }
 
@@ -1448,11 +1472,12 @@ mod tests {
     #[test]
     fn test_layout_clamps_percentage() {
         let layout = Layout {
-            max_width_percent: 0, // below minimum
+            max_width_percent: 0,
             ..Default::default()
         };
+        // 0 means use CSS default — no max-width override
         let css = layout.to_css_vars();
-        assert!(css.contains("--rustview-max-width: 1%"));
+        assert!(!css.contains("--rustview-max-width"));
     }
 
     #[test]
@@ -1466,9 +1491,17 @@ mod tests {
     }
 
     #[test]
+    fn test_layout_builder_max_width_clamps() {
+        let layout = Layout::default().with_max_width(0);
+        assert_eq!(layout.max_width_percent, 1); // clamped to 1
+        let layout = Layout::default().with_max_width(255);
+        assert_eq!(layout.max_width_percent, 100); // clamped to 100
+    }
+
+    #[test]
     fn test_layout_builder_padding_only() {
         let layout = Layout::default().with_padding("3rem 1rem");
-        assert_eq!(layout.max_width_percent, 100); // default preserved
+        assert_eq!(layout.max_width_percent, 0); // default preserved
         assert_eq!(layout.padding, "3rem 1rem");
     }
 
@@ -1493,7 +1526,7 @@ mod tests {
     #[test]
     fn test_config_default_has_layout() {
         let config = RustViewConfig::default();
-        assert_eq!(config.layout.max_width_percent, 100);
+        assert_eq!(config.layout.max_width_percent, 0);
         assert_eq!(config.layout.padding, "2rem");
     }
 

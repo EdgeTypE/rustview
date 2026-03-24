@@ -27,7 +27,7 @@ Add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-rustview = "0.1.4"
+rustview = "0.1.5"
 ```
 
 Or use `cargo add`:
