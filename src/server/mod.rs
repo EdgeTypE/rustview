@@ -1311,6 +1311,9 @@ const BROWSER_SHIM: &str = r#"
                 .filter(function(name) { return name !== 'id' && !(name in attrs); });
             for (const name of toRemove) {
                 el.removeAttribute(name);
+                if (name === 'data-innerhtml') {
+                    el.innerHTML = '';
+                }
             }
             // Set new/updated attributes
             for (const [key, value] of Object.entries(attrs)) {
@@ -1318,6 +1321,8 @@ const BROWSER_SHIM: &str = r#"
                     el.checked = value === 'true';
                 } else if (key === 'value') {
                     el.value = value;
+                } else if (key === 'data-innerHTML') {
+                    el.innerHTML = value;
                 } else {
                     el.setAttribute(key, value);
                 }
@@ -1343,6 +1348,8 @@ const BROWSER_SHIM: &str = r#"
         for (const [key, value] of Object.entries(vnode.attrs || {})) {
             if (key === 'checked') {
                 el.checked = value === 'true';
+            } else if (key === 'data-innerHTML') {
+                el.innerHTML = value;
             } else {
                 el.setAttribute(key, value);
             }
